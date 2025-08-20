@@ -1,282 +1,104 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>PSFREE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALL GOLDHEN</title>
   <style>
-    /* الأساسيات */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background: #0a0a0a;
-      color: #fff;
-      height: 100vh;
+      font-family: "Cairo", sans-serif;
+      background: url("bg.jpg") no-repeat center center fixed;
+      background-size: cover;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      overflow: hidden;
+      height: 100vh;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 130px);
+      grid-gap: 20px;
+    }
+
+    .grid a {
       position: relative;
-    }
-
-    /* طبقة إضاءة متحركة */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(270deg, #ff00ff, #00ffff, #00ff00, #ffff00, #ff0000);
-      background-size: 1000% 1000%;
-      animation: bgAnimation 20s ease infinite;
-      opacity: 0.15;
-      z-index: -1;
-    }
-
-    @keyframes bgAnimation {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
-
-    @font-face {
-      font-family: 'logging';
-      src: url('fonts/LiberationMono-Regular.ttf');
-    }
-
-    /* القائمة العائمة */
-    .floating-menu {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      z-index: 10;
-    }
-
-    .menu-btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .floating-menu-payloads {
-      margin: 20px;
       display: flex;
-      gap: 10px;
       justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .floating-menu-payloads button {
-      padding: 8px 15px;
-      border: none;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.15);
+      align-items: center;
       color: #fff;
-      cursor: pointer;
-    }
-
-    .button-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin: 20px 0;
-    }
-
-    .button-container button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 8px;
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      cursor: pointer;
-    }
-
-    /* البطاقة */
-    .card {
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      width: 90%;
-      max-width: 700px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      animation: fadeIn 1s ease;
+      text-decoration: none;
+      padding: 20px;
+      border-radius: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      overflow: hidden;
       z-index: 1;
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
+    /* خلفية متدرجة متحركة */
+    .grid a::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, red, blue, purple, cyan, magenta, lime, yellow);
+      background-size: 400% 400%;
+      animation: rgbFlow 6s linear infinite;
+      z-index: -2;
     }
 
-    h1 {
-      font-size: 32px;
-      margin-bottom: 20px;
+    /* تلميع خلفي */
+    .grid a::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      right: 3px;
+      bottom: 3px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 12px;
+      z-index: -1;
     }
 
-    /* صندوق الأوامر */
-    #console {
-      font-family: 'logging', monospace;
-      font-size: 18px;
-      text-align: left;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 20px;
-      white-space: pre-wrap;
-      height: 200px;
-      overflow-y: auto;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      border-top: 2px solid rgba(255,255,255,0.2);
-      backdrop-filter: blur(5px);
-      margin: 0;
+    /* أنميشن */
+    @keyframes rgbFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* تأثير الهوفر */
+    .grid a:hover {
+      transform: scale(1.15);
+      transition: 0.4s ease;
     }
   </style>
 </head>
 <body>
-  <script>
-    if (window.applicationCache.status === 0) {
-      window.location.replace("cache.html");
-    }
-
-    function showpayloads() {
-      const page = document.getElementById("payloads-page");
-      page.style.display = (page.style.display === "none") ? "block" : "none";
-    }
-
-    function showtoolspayloads() {
-      document.getElementById("payloads-tools").style.display = "block";
-      document.getElementById("payloads-game").style.display = "none";
-      document.getElementById("payloads-linux").style.display = "none";
-    }
-
-    function showgamepayloads() {
-      document.getElementById("payloads-tools").style.display = "none";
-      document.getElementById("payloads-game").style.display = "block";
-      document.getElementById("payloads-linux").style.display = "none";
-    }
-
-    function showlinuxpayloads() {
-      document.getElementById("payloads-tools").style.display = "none";
-      document.getElementById("payloads-game").style.display = "none";
-      document.getElementById("payloads-linux").style.display = "block";
-    }
-  </script>
-
-  <!-- زر البايلودات -->
-  <div class="floating-menu">
-    <button onclick="showpayloads()" class="menu-btn" id="payloadsbtn">Payloads</button>
+  <div class="grid">
+    <a href="https://site1.com" target="_blank">GoldHEN 2.4b18.5</a>
+    <a href="https://site2.com" target="_blank">GoldHEN 2.4b18.4</a>
+    <a href="https://site3.com" target="_blank">GoldHEN 2.4b18.3</a>
+    <a href="https://site4.com" target="_blank">GoldHEN 2.4b18.2</a>
+    <a href="https://site5.com" target="_blank">GoldHEN 2.4b18</a>
+    <a href="https://site6.com" target="_blank">GoldHEN 2.4b17.3</a>
+    <a href="https://site7.com" target="_blank">GoldHEN 2.4b17.2</a>
+    <a href="https://site8.com" target="_blank">GoldHEN 2.4b17</a>
+    <a href="https://site9.com" target="_blank">GoldHEN 2.4b16.2</a>
+    <a href="https://site10.com" target="_blank">GoldHEN 2.4b16</a>
+    <a href="https://site11.com" target="_blank">GoldHEN 2.4b14</a>
+    <a href="https://site12.com" target="_blank">GoldHEN 2.4b13</a>
+    <a href="https://site13.com" target="_blank">GoldHEN 2.4b5</a>
+    <a href="u81619.github.io/3434" target="_blank">GoldHEN 2.3</a>
+     <a href="https://site14.com" target="_blank">GoldHEN 2.2.5b8</a>
+     <a href="https://site14.com" target="_blank">GoldHEN 2.2.5b7</a>
+     <a href="https://site14.com" target="_blank">GoldHEN 2.2.5b2</a>
   </div>
-
-  <!-- صفحة البايلودات -->
-  <div id="payloads-page" style="display: none;">
-    <nav class="floating-menu-payloads">
-      <button id="toolb" onclick="showtoolspayloads()">Tools</button>
-      <button id="gameb" onclick="showgamepayloads()">Games</button>
-      <button id="linuxb" onclick="showlinuxpayloads()">Linux</button>
-    </nav>
-
-    <!-- أدوات -->
-    <div id="payloads-tools" style="display: block;">
-        <h2 id="tools">Tools</h2>
-          <div class="button-container" id="button-container">
-            <button id="binloader">Bin-Loader</button>
-            <button data-func="load_AppDumper">App-Dumper</button>
-            <button data-func="load_KernelDumper">Kernel-Dumper</button>
-            <button data-func="load_VTXDumper">PS4-Dumper-VTX</button>
-            <button data-func="load_App2USB">App2USB</button>
-            <button data-func="load_DisableUpdates">Disable-Updates</button>
-            <button data-func="load_EnableUpdates">Enable-Updates</button>
-            <button data-func="load_FTP">FTP</button>
-            <button data-func="load_HistoryBlocker">History-Blocker</button>
-            <button data-func="load_KernelClock">Kernel-Clock</button>
-            <!--<button data-func="load_Orbis">Orbis-Toolbox</button>-->
-            <button data-func="load_PS4Debug">PS4-Debug</button>
-            <button data-func="load_ToDex">ToDex</button>
-            <button data-func="load_ToDev">ToDev</button>
-            <button data-func="load_ToKratos">ToKratos</button>
-            <button data-func="load_ToCex">ToCex</button>
-            <button data-func="load_BackupDB">Backup-DB</button>
-            <button data-func="load_RestoreDB">Restore-DB</button>
-            <button data-func="load_RIFRenamer">RIF-Renamer</button>
-            <button data-func="load_ExitIDU">ExitIDU</button>
-            <button data-func="load_DisableASLR">Disable-ASLR</button>
-            <button data-func="load_ModuleDumper">Module-Dumper</button>
-            <!--<button data-func="load_WebrRTE">WebRTE</button>-->
-            <button data-func="load_PermanentUART">Permanent-UART</button>
-            <button data-func="load_PUPDecrypt">PUP-Decrypt</button>
-          </div>
-      </div>
-      <div id="payloads-game" style="display: none;">
-        <h2 id="tools">Game</h2>
-          <div class="button-container" id="button-container">
-            <button data-func="load_GTAArbic">GTAV-ArabicGuy-1.27</button>
-            <button data-func="load_GTAArbic3">GTAV-ArabicGuy-1.32</button>
-            <button data-func="load_GTAArbic33">GTAV-ArabicGuy-1.33</button>
-            <button data-func="load_GTABQ133">GTAV-BeefQueefMod-1.33</button>
-            <button data-func="load_GTABQ134">GTAV-BeefQueefMod-1.34</button>
-            <button data-func="load_GTABQ138">GTAV-BeefQueefMod-1.38</button>
-            <button data-func="load_GTAWM132">GTAV-WildeModz-1.32</button>
-            <button data-func="load_GTAWM133">GTAV-WildeModz-1.33</button>
-            <button data-func="load_GTAWM138">GTAV-WildeModz-1.38</button>
-            <button data-func="load_Oysters100">RDR2-OystersMenu-1.00</button>
-            <button data-func="load_Oysters113">RDR2-OystersMenu-1.13</button>
-            <button data-func="load_Oysters119">RDR2-OystersMenu-1.19</button>
-            <button data-func="load_Oysters124">RDR2-OystersMenu-1.24</button>
-            <button data-func="load_Oysters124">RDR2-OystersMenu-1.29</button>
-          </div>
-      </div>
-      <div id="payloads-linux" style="display: none;">
-          <h2 id="tools">Linux</h2>
-          <div class="button-container" id="button-container">
-            <h2 style="text-align: center;">PS4</h2>
-            <button data-func="load_Linux">1GBVram</button>
-            <button data-func="load_Linux2gb">2GBVram</button>
-            <button data-func="load_Linux3gb">3GBVram</button>
-            <button data-func="load_Linux4gb">4GBVram</button>
-            <h2 style="text-align: center;">PS4-PRO</h2>
-            <button data-func="load_Linux_PRO">1GBVram</button>
-            <button data-func="load_Linux2gb_PRO">2GBVram</button>
-            <button data-func="load_Linux3gb_PRO">3GBVram</button>
-            <button data-func="load_Linux4gb_PRO">4GBVram</button>
-            <h2 style="text-align: center;">PS4-Baikal</h2>
-            <button data-func="load_Linux_Baikal">1GBVram</button>
-            <button data-func="load_Linux2gb_Baikal">2GBVram</button>
-            <button data-func="load_Linux3gb_Baikal">3GBVram</button>
-            <button data-func="load_Linux4gb_Baikal">4GBVram</button>
-            <h2 style="text-align: center;">PS4-Baikal-PRO</h2>
-            <button data-func="load_Linux_PRO_Baikal">1GBVram</button>
-            <button data-func="load_Linux2gb_PRO_Baikal">2GBVram</button>
-            <button data-func="load_Linux3gb_PRO_Baikal">3GBVram</button>
-            <button data-func="load_Linux4gb_PRO_Baikal">4GBVram</button>
-          </div>
-      </div>
-  </div>
-
-  <!-- الكارد الرئيسي -->
-  <div class="card">
-    <h1>PSFREE</h1>
-  </div>
-
-  <pre id="console"></pre>
-
-  <script src="payload.js"></script>
-  <script type="module" src="./alert.mjs"></script>
 </body>
 </html>
