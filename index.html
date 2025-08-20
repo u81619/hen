@@ -18,6 +18,32 @@
       height: 100vh;
     }
 
+.header {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  background: rgba(0,0,0,0.6);
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.7);
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideIn 1.2s ease-out forwards;
+
+  display: flex;         /* يخلي النص والصورة بجانب بعض */
+  align-items: center;   /* يوسّطهم عمودياً */
+  gap: 10px;             /* مسافة بين الصورة والنص */
+}
+
+.logo {
+  width: 35px;   /* حجم الشعار */
+  height: 35px;
+  border-radius: 5px; /* إذا تريد الزوايا مدورة */
+}
+    
     .grid {
       display: grid;
       grid-template-columns: repeat(4, 130px);
