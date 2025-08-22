@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>لـود تلقائي GoldHen (PSfree1.5rc1 FW 9.xx)</title>
+    <link rel="stylesheet prefetch" href="Style.css">
+    <style>
+        .info {
+            overflow: hidden;
+            position: fixed;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 45px;
+            font-family: sans-serif;
+            color: #b8b8b8;
+            transform: translate(-50%, -50%);
+        }
+        .j {
+            font-size: 15px;
+            color: #2F3335;
+        }
+    </style>
+    <script>
+        if (window.applicationCache.status == '0') {
+            window.location.replace("cache.html");
+        }
+    </script>
+    <script defer src="payload.js"></script>
+    <script defer src="loader.js"></script>
+    <script type=module src="alert.js"></script>
+</head>
+<body onload=load_exploit()>
+<div id="jb-progress">
+    <div id="notify" style="display:;">
+        <img src="hen.jpg" alt="" width="100px" height="100px">
+        <p id="log"></p>
+    </div>
+
+    <h1 id="msgs" style="margin-top:30px;color:#e5e4e2">تشغيل تلقائي GoldHen (PSfree1.5rc1 FW 9.xx)</h1>
+    <h1 id="msgs2" style='font-size:25px;text-align:center;color:#e5e4e2;'>∆❍X❑</h1>
+    <br>
+
+    <div style='margin-top:15px;font-size:20px;text-align:center;color:#e5e4e2;'><b>التعديلات</b></div>
+    <button style='margin-top:5px;font-size:17px;text-align:center;color:#FFFFFF' class="pointer" onclick=load_gtabeef138() onmouseover="msgs2.innerHTML='تثبيت Prx للعبة gta5 و rdr2'" onmouseout="msgs2.innerHTML='∆❍X❑'" type="button"><b> مثبت Prx gta5 و rdr2 </b></button>
+
+    <br>
+    <div style='margin-top:15px;font-size:20px;text-align:center;color:#e5e4e2;'><b>الحمولات</b></div>
+    <button style='font-size:20px;text-align:center;color:#FFFFFF' class="pointer" onclick=load_pkg() onmouseover="msgs2.innerHTML='نسخ الحزم إلى USB - الإصدار 1.1'" onmouseout="msgs2.innerHTML='∆❍X❑'" type="button"><b> نسخ الحزم </b></button>
+    <button style='font-size:20px;text-align:center;color:#FFFFFF' class="pointer" onclick=load_dumper() onmouseover="msgs2.innerHTML='تفريغ الألعاب إلى USB لإنشاء حزم fpkg'" onmouseout="msgs2.innerHTML='∆❍X❑'" type="button"><b> تفريغ الألعاب </b></button>
+
+    <br>
+    <button style='margin-top:10px;font-size:20px;text-align:center;color:#FFFFFF' class="pointer" onclick=load_cacheinstall2() onmouseover="msgs2.innerHTML='نسخ احتياطي لقاعدة البيانات'" onmouseout="msgs2.innerHTML='∆❍X❑'" type="button"><b> نسخ قاعدة البيانات </b></button>
+    <button style='font-size:20px;text-align:center;color:#FFFFFF' class="pointer" onclick=load_cacheinstall() onmouseover="msgs2.innerHTML='استعادة قاعدة البيانات'" onmouseout="msgs2.innerHTML='∆❍X❑'" type="button"><b> استعادة قاعدة البيانات </b></button>
+
+    <br>
+    <button style='margin-top:10px;font-size:20px;text-align:center;color:#FFFFFF' class="pointer" onclick=load_disabled_update() onmouseover="msgs2.innerHTML='تعطيل التحديثات'" onmouseout="msgs2.innerHTML='∆❍X❑'" type="button"><b> تعطيل التحديث </b></button>
+    <button style='font-size:20px;text-align:center;color:#FFFFFF' class="pointer" onclick=load_enabled_update() onmouseover="msgs2.innerHTML='تفعيل التحديثات'" onmouseout="msgs2.innerHTML='∆❍X❑'" type="button"><b> تفعيل التحديث </b></button>
+
+    <br>
+    <button style='margin-top:10px;font-size:20px;text-align:center;color:#FFFFFF' class="pointer" onclick=load_ps4debug() onmouseover="msgs2.innerHTML='أدوات تصحيح PS4'" onmouseout="msgs2.innerHTML='∆❍X❑'" type="button"><b> Ps4debug </b></button>
+    <button style='margin-top:10px;font-size:20px;text-align:center;color:#FFFFFF' class="pointer" onclick=load_fix() onmouseover="msgs2.innerHTML='تثبيت Aio fix'" onmouseout="msgs2.innerHTML='∆❍X❑'" type="button"><b> تثبيت Aio fix </b></button>
+
+    <br><br><br><br><br><br>
+    <button style="margin-top:15px;background-color:#781f1f;border-radius:50px;" type="button">
+        الإصدار - <span id="PS4fw"></span>
+    </button>
+    <br><br>
+
+    <div class="about2" style='margin-right:75px'>
+        <a href="theme.html" rel="noopener noreferrer">
+            <button id="enter" style='font-size:20px;text-align:center;color:#FFFFFF' class="pointer" onmouseover="msgs2.innerHTML='تغيير الخلفية'" onmouseout="msgs2.innerHTML='∆❍X❑'" type="button"><b>الخلفيات</b></button>
+        </a>
+    </div>
+    <br><br><br>
+
+    <div style="background-color:#032140;color:white;position:fixed;left:0;bottom:-0px;width:100%;text-align:center;">
+        <font style='color:#87FF33'>شكر خاص لـ:</font> *ألف شكر لجميع المساهمين في ساحة PS4 ∆❍X❑*<br>
+        <font style="font-size: 20px">تمت = <span style="color:green" id=passCounter></span>&nbsp;&nbsp;:&nbsp;&nbsp;فشل = <span style="color:red" id=failCounter></span></font>
+    </div>
+
+    <script>
+        UA = navigator.userAgent.substring(navigator.userAgent.indexOf("6.72 (") + 28, navigator.userAgent.indexOf(") Apple"));
+        if (UA == "layStation 4/9.00") UA = "9.00";
+        if (UA == "layStation 4/9.03") UA = "9.03";
+        if (UA == "layStation 4/9.04") UA = "9.04";
+        if (UA == "layStation 4/9.50") UA = "9.50";
+        if (UA == "layStation 4/9.51") UA = "9.51";
+        if (UA == "layStation 4/9.60") UA = "9.60";
+        if (UA == "layStation 4/99.99") UA = "99.99";
+        if (UA != "9.00" && UA != "9.03" && UA != "9.04" && UA != "9.50" && UA != "9.51" && UA != "9.60" && UA != "99.99")
+            alert("هذا الإصدار مخصص لأجهزة PS4 بالإصدار 9.xx فقط!");
+        PS4fw.innerHTML = "" + UA + "";
+    </script>
+
+    <script type="text/javascript">
+        if (localStorage.getItem("theme") == null) {
+            localStorage.setItem("theme", "2.jpg")
+        }
+        document.body.style.background = "url('" + localStorage.getItem("theme") + "')"
+        document.body.style.backgroundSize = "cover"
+        var imgs = ["1.png", "2.jpg", "3.jpg", "4.jpg", "5.jpg"];
+        render()
+        function render() {
+            document.querySelector(".themes").innerHTML = ""
+            for (let i = 0; i < imgs.length; i++) {
+                var selectText = "اختيار"
+                var textColor = "white"
+                if (localStorage.theme == imgs[i]) {
+                    selectText = "مُختارة"
+                    textColor = "green"
+                }
+                document.querySelector(".themes").innerHTML += '<div class="theme" ><img src="' + imgs[i] + '" ><span style="color:'
