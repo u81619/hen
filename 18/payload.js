@@ -1,44 +1,44 @@
 function load_gtabeef138(){
-LoadedMSG="Installer gta5 rdr2 prx Loaded !!!";
-LoadFromGHBLS('installergta5rdr2prx.bin');
+    LoadedMSG = "تم تحميل مثبت GTA5 و RDR2 و PRX بنجاح! بواسطة 4GAMER";
+    LoadFromGHBLS('installergta5rdr2prx.bin');
 }
 
 function load_dumper(){
-LoadedMSG="Dumper v2 Loaded !!!";
-LoadFromGHBLS('gamedumper.bin');
+    LoadedMSG = "تم تحميل برنامج تفريغ الذاكرة (Dumper v2)! بواسطة 4GAMER";
+    LoadFromGHBLS('gamedumper.bin');
 }
 
 function load_ps4debug(){
-LoadedMSG="PS4Debug v1.0.15  Loaded !!!";
-LoadFromGHBLS('ps4debug.bin');
+    LoadedMSG = "تم تحميل PS4 Debug الإصدار 1.0.15! بواسطة 4GAMER";
+    LoadFromGHBLS('ps4debug.bin');
 }
 
 function load_cacheinstall(){
-LoadedMSG="restore DB Loaded !!!";
-LoadFromGHBLS('restore.bin');
+    LoadedMSG = "تم تحميل استرجاع قاعدة البيانات! بواسطة 4GAMER";
+    LoadFromGHBLS('restore.bin');
 }
 
 function load_cacheinstall2(){
-LoadedMSG="Backup DB Loaded !!!";
-LoadFromGHBLS('backup.bin');
+    LoadedMSG = "تم تحميل نسخة احتياطية لقاعدة البيانات! بواسطة 4GAMER";
+    LoadFromGHBLS('backup.bin');
 }
 
 function load_pkg(){
-LoadedMSG="Backup Pkg v1.1 Loaded!!! Load your game!!!";
-LoadFromGHBLS('pkgbackup.bin');
+    LoadedMSG = "تم تحميل النسخة الاحتياطية للعبة (Pkg v1.1)! شغل لعبتك الآن! بواسطة 4GAMER";
+    LoadFromGHBLS('pkgbackup.bin');
 }
 
 function load_disabled_update(){
-LoadedMSG="Disabled Update Loaded!!!";
-LoadFromGHBLS('disabled_update.bin');
+    LoadedMSG = "تم تعطيل التحديثات بنجاح! بواسطة 4GAMER";
+    LoadFromGHBLS('disabled_update.bin');
 }
 
 function load_enabled_update(){
-LoadedMSG="Enabled Update Loaded!!!";
-LoadFromGHBLS('enabled_update.bin');
+    LoadedMSG = "تم تفعيل التحديثات بنجاح! بواسطة 4GAMER";
+    LoadFromGHBLS('enabled_update.bin');
 }
 
 function load_fix(){
-LoadedMSG="psfree fix Aio Loaded!!!";
-LoadFromGHBLS('psfree-fix.bin');
+    LoadedMSG = "تم تحميل إصلاح شامل (psfree fix AIO)! بواسطة 4GAMER";
+    LoadFromGHBLS('psfree-fix.bin');
 }
