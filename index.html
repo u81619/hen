@@ -7,57 +7,69 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 100%; height: 100%; font-family: "Cairo", sans-serif; }
-
-  /* الخلفية الرئيسية */
   body {
-    background: url('default.jpg') no-repeat center center fixed;
+    font-family: "Cairo", sans-serif;
+    background: url("default.jpg") no-repeat center center fixed;
     background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
     transition: background 0.5s ease-in-out;
   }
 
-  /* ===== الخلفية المتحركة Blob ===== */
-  .bg-anim{position:fixed;inset:-20%;z-index:-1;filter:blur(60px);opacity:.45;pointer-events:none}
-  .blob{position:absolute;width:50vmax;height:50vmax;border-radius:50%;mix-blend-mode:screen;animation:float 22s ease-in-out infinite}
-  .b1{background:radial-gradient(circle at 30% 30%, #f5d06f 0%, transparent 60%);left:-10%;top:-10%;animation-delay:0s}
-  .b2{background:radial-gradient(circle at 70% 40%, #8cc8ff 0%, transparent 60%);right:-15%;top:10%;animation-delay:4s}
-  .b3{background:radial-gradient(circle at 40% 70%, #b387ff 0%, transparent 65%);left:10%;bottom:-15%;animation-delay:8s}
-  @keyframes float{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(4%, -2%, 0) scale(1.05)}}
-
-  /* ===== حاوية الأزرار العمودية مع Scroll ===== */
-  .grid {
+  /* ===== الهيدر ===== */
+  .header {
     position: fixed;
-    top: 80px;
-    right: 20px;
-    width: 200px; /* عرض العمود */
-    max-height: 80vh; /* ارتفاع الحاوية */
-    overflow-y: auto; /* تفعيل التمرير عمودي */
+    top: 15px;
+    left: 20px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     gap: 15px;
-    padding: 10px;
-    background: rgba(0,0,0,0.5);
+    padding: 12px 25px;
+    background: rgba(0,0,0,0.7);
     border-radius: 12px;
-    z-index: 1;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    opacity: 0;
+    transform: translateX(-60px);
+    animation: slideIn 1s ease-out forwards;
+  }
+  .header .logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid #fff;
   }
 
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ===== الشبكة ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    z-index: 1;
+  }
   .grid a {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     color: #fff;
     font-weight: bold;
-    font-size: 16px;
-    border-radius: 12px;
-    padding: 15px;
+    font-size: 18px;
+    border-radius: 15px;
+    padding: 20px;
+    overflow: hidden;
     text-decoration: none;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
   }
-
   .grid a::before {
     content: "";
     position: absolute;
@@ -70,19 +82,17 @@
     animation: rgbFlow 6s linear infinite;
     z-index: -2;
   }
-
   .grid a::after {
     content: "";
     position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
+    inset: 3px;
+    background: rgba(0,0,0,0.75);
     border-radius: 12px;
     z-index: -1;
   }
-
   .grid a:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(255,255,255,0.7);
+    transform: scale(1.15) rotate(-2deg);
+    box-shadow: 0 0 25px rgba(255,255,255,0.7);
   }
 
   @keyframes rgbFlow {
@@ -91,11 +101,11 @@
     100% { background-position: 0% 50%; }
   }
 
-  /* ===== قسم الثيمات ===== */
+  /* ===== قسم الثيمات في الأعلى يمين ===== */
   .themes {
     position: fixed;
     top: 15px;
-    left: 20px;
+    right: 20px;
     display: flex;
     gap: 12px;
     background: rgba(0,0,0,0.7);
@@ -104,7 +114,6 @@
     box-shadow: 0 0 15px rgba(0,0,0,0.7);
     z-index: 10;
   }
-
   .themes img {
     width: 60px;
     height: 40px;
@@ -113,32 +122,33 @@
     border: 2px solid transparent;
     transition: transform 0.3s ease, border-color 0.3s ease;
   }
-
-  .themes img:hover { transform: scale(1.2); }
-  .themes img.selected { border-color: lime; transform: scale(1.2); }
-
-  /* Scrollbar بسيط */
-  .grid::-webkit-scrollbar {
-    width: 8px;
+  .themes img:hover {
+    transform: scale(1.2);
   }
-  .grid::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.3);
-    border-radius: 4px;
+  .themes img.selected {
+    border-color: lime;
+    transform: scale(1.2);
+  }
+
+  /* ===== تأثير خفيف على الجسم ===== */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.2);
+    pointer-events: none;
+    backdrop-filter: blur(2px);
   }
 </style>
 </head>
 <body>
 
-<!-- خلفية متحركة -->
-<div class="bg-anim">
-  <div class="blob b1"></div>
-  <div class="blob b2"></div>
-  <div class="blob b3"></div>
-</div>
+<div class="header">
+  <img src="logo.png" alt="شعار 4GAMER" class="logo">
+</div>  
 
-<!-- شبكة الأزرار العمودية -->
 <div class="grid">
-  <a href="19/" target="_blank">افضل اختيار 👈 GoldHEN 2.4b18.6</a>
+  <a href="19/" target="_blank">افضل اختيار GoldHEN 2.4b18.6</a>
   <a href="1/" target="_blank">GoldHEN 2.4b18.5</a>
   <a href="2/" target="_blank">GoldHEN 2.4b18.4</a>
   <a href="3/" target="_blank">GoldHEN 2.4b18.3</a>
@@ -158,22 +168,24 @@
   <a href="17/" target="_blank">GoldHEN 2.2.5b2</a>
 </div>
 
-<!-- اختيار الثيمات -->
 <div class="themes"></div>
 
 <script>
-const imgs = ["default.jpg","1.jpg","2.jpg","3.jpg","4.jpg","5.jpg"];
+const imgs = ["1.png","2.jpg","3.gif","4.gif","5.jpg"];
 const themesContainer = document.querySelector(".themes");
 
+// الخلفية الافتراضية
 if(!localStorage.getItem("theme")){
-  localStorage.setItem("theme", imgs[0]);
+  localStorage.setItem("theme", "default.jpg");
 }
 
+// تطبيق الخلفية
 function applyTheme(img){
   document.body.style.background = `url('${img}') no-repeat center center fixed`;
   document.body.style.backgroundSize = "cover";
 }
 
+// رسم الصور
 function renderThemes(){
   themesContainer.innerHTML = "";
   imgs.forEach(img => {
@@ -189,6 +201,7 @@ function renderThemes(){
   });
 }
 
+// تفعيل عند التحميل
 applyTheme(localStorage.getItem("theme"));
 renderThemes();
 </script>
