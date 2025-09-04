@@ -6,12 +6,10 @@
 <title>ALL GOLDHEN</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  /* ===== قاعدة عامة ===== */
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: "Cairo", sans-serif;
-    background: url("bg.png") no-repeat center center fixed;
-    background-size: cover;
+    background: #08090b; /* خلفية داكنة أساسية */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,6 +17,14 @@
     overflow-x: hidden;
     transition: background 0.5s ease-in-out;
   }
+
+  /* ===== الخلفية المتحركة من Blob ===== */
+  .bg-anim{position:fixed;inset:-20%;z-index:-1;filter:blur(60px);opacity:.45;pointer-events:none}
+  .blob{position:absolute;width:50vmax;height:50vmax;border-radius:50%;mix-blend-mode:screen;animation:float 22s ease-in-out infinite}
+  .b1{background:radial-gradient(circle at 30% 30%, #f5d06f 0%, transparent 60%);left:-10%;top:-10%;animation-delay:0s}
+  .b2{background:radial-gradient(circle at 70% 40%, #8cc8ff 0%, transparent 60%);right:-15%;top:10%;animation-delay:4s}
+  .b3{background:radial-gradient(circle at 40% 70%, #b387ff 0%, transparent 65%);left:10%;bottom:-15%;animation-delay:8s}
+  @keyframes float{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(4%, -2%, 0) scale(1.05)}}
 
   /* ===== الهيدر ===== */
   .header {
@@ -30,24 +36,14 @@
     gap: 15px;
     padding: 12px 25px;
     background: rgba(0,0,0,0.7);
-    color: #fff;
-    font-size: 22px;
-    font-weight: 700;
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(0,0,0,0.8);
-    opacity: 0;
-    transform: translateX(-60px);
-    animation: slideIn 1s ease-out forwards;
   }
   .header .logo {
     width: 40px;
     height: 40px;
     border-radius: 8px;
     border: 2px solid #fff;
-  }
-
-  @keyframes slideIn {
-    to { opacity: 1; transform: translateX(0); }
   }
 
   /* ===== الشبكة ===== */
@@ -98,25 +94,24 @@
     transform: scale(1.15) rotate(-2deg);
     box-shadow: 0 0 25px rgba(255,255,255,0.7);
   }
-
   @keyframes rgbFlow {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
 
-  /* ===== قسم الثيمات ===== */
+  /* ===== قسم الثيمات في الأعلى يمين ===== */
   .themes {
     position: fixed;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 15px;
+    right: 20px;
     display: flex;
     gap: 12px;
     background: rgba(0,0,0,0.7);
     padding: 12px;
     border-radius: 14px;
     box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    z-index: 10;
   }
   .themes img {
     width: 60px;
@@ -126,31 +121,22 @@
     border: 2px solid transparent;
     transition: transform 0.3s ease, border-color 0.3s ease;
   }
-  .themes img:hover {
-    transform: scale(1.2);
-  }
-  .themes img.selected {
-    border-color: lime;
-    transform: scale(1.2);
-  }
-
-  /* ===== تأثير خفيف على الجسم ===== */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.2);
-    pointer-events: none;
-    backdrop-filter: blur(2px);
-  }
+  .themes img:hover { transform: scale(1.2); }
+  .themes img.selected { border-color: lime; transform: scale(1.2); }
 </style>
 </head>
 <body>
 
+<!-- خلفية متحركة -->
+<div class="bg-anim">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
 <div class="header">
   <img src="logo.png" alt="شعار 4GAMER" class="logo">
-  مرحبا بك في صفحة 4GAMER
-</div>  
+</div>
 
 <div class="grid">
   <a href="19/" target="_blank">GoldHEN 2.4b18.6</a>
@@ -179,18 +165,16 @@
 const imgs = ["1.png","2.jpg","3.gif","4.gif","5.jpg"];
 const themesContainer = document.querySelector(".themes");
 
-// تحديد الخلفية الافتراضية
+// إذا لم يختار المستخدم أي ثيم، سيتم استخدام أول صورة
 if(!localStorage.getItem("theme")){
-  localStorage.setItem("theme", "bg.png");
+  localStorage.setItem("theme", imgs[0]);
 }
 
-// تطبيق الخلفية
 function applyTheme(img){
   document.body.style.background = `url('${img}') no-repeat center center fixed`;
   document.body.style.backgroundSize = "cover";
 }
 
-// رسم الصور
 function renderThemes(){
   themesContainer.innerHTML = "";
   imgs.forEach(img => {
@@ -206,7 +190,6 @@ function renderThemes(){
   });
 }
 
-// تفعيل عند التحميل
 applyTheme(localStorage.getItem("theme"));
 renderThemes();
 </script>
