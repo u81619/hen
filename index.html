@@ -11,26 +11,18 @@
 
   /* الخلفية الرئيسية */
   body {
-    background: url('default.jpg') no-repeat center center fixed; /* ضع هنا الصورة الرئيسية 1920x1079 */
+    background: url('default.jpg') no-repeat center center fixed; /* ضع هنا الصورة الرئيسية */
     background-size: cover;
     transition: background 0.5s ease-in-out;
   }
 
-  /* ===== الهيدر ===== */
-  .header {
-    position: fixed;
-    top: 15px;
-    left: 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 12px 25px;
-    background: rgba(0,0,0,0.7);
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.8);
-    z-index: 10;
-  }
-  .header .logo { width: 40px; height: 40px; border-radius: 8px; border: 2px solid #fff; }
+  /* ===== الخلفية المتحركة من Blob ===== */
+  .bg-anim{position:fixed;inset:-20%;z-index:-1;filter:blur(60px);opacity:.45;pointer-events:none}
+  .blob{position:absolute;width:50vmax;height:50vmax;border-radius:50%;mix-blend-mode:screen;animation:float 22s ease-in-out infinite}
+  .b1{background:radial-gradient(circle at 30% 30%, #f5d06f 0%, transparent 60%);left:-10%;top:-10%;animation-delay:0s}
+  .b2{background:radial-gradient(circle at 70% 40%, #8cc8ff 0%, transparent 60%);right:-15%;top:10%;animation-delay:4s}
+  .b3{background:radial-gradient(circle at 40% 70%, #b387ff 0%, transparent 65%);left:10%;bottom:-15%;animation-delay:8s}
+  @keyframes float{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(4%, -2%, 0) scale(1.05)}}
 
   /* ===== الشبكة ===== */
   .grid {
@@ -56,11 +48,35 @@
     text-decoration: none;
     cursor: pointer;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
-    background: rgba(0,0,0,0.5);
+  }
+  .grid a::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, red, blue, purple, cyan, magenta, lime, yellow);
+    background-size: 400% 400%;
+    animation: rgbFlow 6s linear infinite;
+    z-index: -2;
+  }
+  .grid a::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    background: rgba(0,0,0,0.75);
+    border-radius: 12px;
+    z-index: -1;
   }
   .grid a:hover {
     transform: scale(1.15) rotate(-2deg);
     box-shadow: 0 0 25px rgba(255,255,255,0.7);
+  }
+  @keyframes rgbFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 
   /* ===== قسم الثيمات ===== */
@@ -90,6 +106,14 @@
 </head>
 <body>
 
+<!-- خلفية متحركة -->
+<div class="bg-anim">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
+<!-- شبكة الأزرار -->
 <div class="grid">
   <a href="19/" target="_blank">افضل اختيار 👈 GoldHEN 2.4b18.6</a>
   <a href="1/" target="_blank">GoldHEN 2.4b18.5</a>
@@ -111,24 +135,22 @@
   <a href="17/" target="_blank">GoldHEN 2.2.5b2</a>
 </div>
 
+<!-- اختيار الثيمات -->
 <div class="themes"></div>
 
 <script>
 const imgs = ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg"];
 const themesContainer = document.querySelector(".themes");
 
-// استخدام الصورة الافتراضية عند أول دخول
 if(!localStorage.getItem("theme")){
   localStorage.setItem("theme", imgs[0]);
 }
 
-// تطبيق الخلفية
 function applyTheme(img){
   document.body.style.background = `url('${img}') no-repeat center center fixed`;
   document.body.style.backgroundSize = "cover";
 }
 
-// عرض الصور للتغيير
 function renderThemes(){
   themesContainer.innerHTML = "";
   imgs.forEach(img => {
@@ -144,7 +166,6 @@ function renderThemes(){
   });
 }
 
-// تطبيق الخلفية عند تحميل الصفحة
 applyTheme(localStorage.getItem("theme"));
 renderThemes();
 </script>
