@@ -1,137 +1,159 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ALL GOLDHEN</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "Cairo", sans-serif;
-      background: url("bg.png") no-repeat center center fixed;
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      transition: background 0.4s ease;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALL GOLDHEN</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== قاعدة عامة ===== */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Cairo", sans-serif;
+    background: url("bg.png") no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background 0.5s ease-in-out;
+  }
 
-    .header {
-      position: absolute;
-      top: 15px;
-      left: 20px;
-      color: white;
-      font-size: 22px;
-      font-weight: bold;
-      background: rgba(0,0,0,0.6);
-      padding: 10px 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.7);
-      opacity: 0;
-      transform: translateX(-50px);
-      animation: slideIn 1.2s ease-out forwards;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+  /* ===== الهيدر ===== */
+  .header {
+    position: fixed;
+    top: 15px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 25px;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    opacity: 0;
+    transform: translateX(-60px);
+    animation: slideIn 1s ease-out forwards;
+  }
+  .header .logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+  }
 
-    .logo {
-      width: 35px;
-      height: 35px;
-      border-radius: 5px;
-    }
-    
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, 130px);
-      grid-gap: 20px;
-    }
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
 
-    .grid a {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      text-decoration: none;
-      padding: 20px;
-      border-radius: 15px;
-      font-size: 18px;
-      font-weight: bold;
-      overflow: hidden;
-      z-index: 1;
-    }
+  /* ===== الشبكة ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    z-index: 1;
+  }
+  .grid a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 15px;
+    padding: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .grid a::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, red, blue, purple, cyan, magenta, lime, yellow);
+    background-size: 400% 400%;
+    animation: rgbFlow 6s linear infinite;
+    z-index: -2;
+  }
+  .grid a::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    background: rgba(0,0,0,0.75);
+    border-radius: 12px;
+    z-index: -1;
+  }
+  .grid a:hover {
+    transform: scale(1.15) rotate(-2deg);
+    box-shadow: 0 0 25px rgba(255,255,255,0.7);
+  }
 
-    .grid a::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg, red, blue, purple, cyan, magenta, lime, yellow);
-      background-size: 400% 400%;
-      animation: rgbFlow 6s linear infinite;
-      z-index: -2;
-    }
+  @keyframes rgbFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-    .grid a::after {
-      content: "";
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      right: 3px;
-      bottom: 3px;
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 12px;
-      z-index: -1;
-    }
+  /* ===== قسم الثيمات ===== */
+  .themes {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    background: rgba(0,0,0,0.7);
+    padding: 12px;
+    border-radius: 14px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.7);
+  }
+  .themes img {
+    width: 60px;
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  .themes img:hover {
+    transform: scale(1.2);
+  }
+  .themes img.selected {
+    border-color: lime;
+    transform: scale(1.2);
+  }
 
-    @keyframes rgbFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .grid a:hover {
-      transform: scale(1.15);
-      transition: 0.4s ease;
-    }
-
-    /* قسم الثيمات */
-    .themes {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      background: rgba(0,0,0,0.6);
-      padding: 10px;
-      border-radius: 12px;
-    }
-    .themes img {
-      width: 60px;
-      height: 40px;
-      border-radius: 6px;
-      cursor: pointer;
-      border: 2px solid transparent;
-    }
-    .themes img.selected {
-      border: 2px solid lime;
-    }
-  </style>
+  /* ===== تأثير خفيف على الجسم ===== */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.2);
+    pointer-events: none;
+    backdrop-filter: blur(2px);
+  }
+</style>
 </head>
 <body>
+
 <div class="header">
   <img src="logo.png" alt="شعار 4GAMER" class="logo">
   مرحبا بك في صفحة 4GAMER
 </div>  
-  
+
 <div class="grid">
-    <a href="19/" target="_blank">GoldHEN 2.4b18.6</a>
+  <a href="19/" target="_blank">GoldHEN 2.4b18.6</a>
   <a href="1/" target="_blank">GoldHEN 2.4b18.5</a>
   <a href="2/" target="_blank">GoldHEN 2.4b18.4</a>
   <a href="3/" target="_blank">GoldHEN 2.4b18.3</a>
@@ -148,49 +170,45 @@
   <a href="14/" target="_blank">GoldHEN 2.3</a>
   <a href="15/" target="_blank">GoldHEN 2.2.5b8</a>
   <a href="16/" target="_blank">GoldHEN 2.2.5b7</a>
-  <a href="17" target="_blank">GoldHEN 2.2.5b2</a>
+  <a href="17/" target="_blank">GoldHEN 2.2.5b2</a>
 </div>
 
-<!-- قسم الثيمات -->
 <div class="themes"></div>
 
 <script>
-  // صور الخلفية
-  const imgs = ["1.png","2.jpg","3.gif","4.gif","5.jpg"];
-  const themesContainer = document.querySelector(".themes");
+const imgs = ["1.png","2.jpg","3.gif","4.gif","5.jpg"];
+const themesContainer = document.querySelector(".themes");
 
-  // لو مافي قيمة محفوظة، نحدد صورة افتراضية
-  if(!localStorage.getItem("theme")){
-    localStorage.setItem("theme", "bg.png");
-  }
+// تحديد الخلفية الافتراضية
+if(!localStorage.getItem("theme")){
+  localStorage.setItem("theme", "bg.png");
+}
 
-  // تطبيق الخلفية
-  function applyTheme(img){
-    document.body.style.background = "url('" + img + "') no-repeat center center fixed";
-    document.body.style.backgroundSize = "cover";
-  }
+// تطبيق الخلفية
+function applyTheme(img){
+  document.body.style.background = `url('${img}') no-repeat center center fixed`;
+  document.body.style.backgroundSize = "cover";
+}
 
-  // رسم الصور للاختيار
-  function renderThemes(){
-    themesContainer.innerHTML = "";
-    imgs.forEach(img => {
-      const thumb = document.createElement("img");
-      thumb.src = img;
-      if(localStorage.getItem("theme") === img){
-        thumb.classList.add("selected");
-      }
-      thumb.onclick = () => {
-        localStorage.setItem("theme", img);
-        applyTheme(img);
-        renderThemes();
-      }
-      themesContainer.appendChild(thumb);
-    });
-  }
+// رسم الصور
+function renderThemes(){
+  themesContainer.innerHTML = "";
+  imgs.forEach(img => {
+    const thumb = document.createElement("img");
+    thumb.src = img;
+    if(localStorage.getItem("theme") === img) thumb.classList.add("selected");
+    thumb.onclick = () => {
+      localStorage.setItem("theme", img);
+      applyTheme(img);
+      renderThemes();
+    };
+    themesContainer.appendChild(thumb);
+  });
+}
 
-  // عند تحميل الصفحة
-  applyTheme(localStorage.getItem("theme"));
-  renderThemes();
+// تفعيل عند التحميل
+applyTheme(localStorage.getItem("theme"));
+renderThemes();
 </script>
 
 </body>
